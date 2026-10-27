@@ -47,13 +47,30 @@ document.getElementById("categoryFilters").addEventListener("click",e=>{
  renderDestinations();
 });
 
-document.getElementById("blogGrid").innerHTML = posts.map((p,i)=>`<article class="blog-card"><img src="${p.image}" alt="" loading="lazy"><span class="blog-category">${p.category} · ${p.read}</span><h3>${p.title}</h3><p>${p.excerpt}</p><button type="button" data-post="${i}">Leer artículo completo ↗</button></article>`).join("");
+document.getElementById("blogGrid").innerHTML = posts.map((p,i)=>`<article class="blog-card"><img src="${p.image}" alt="Imagen relacionada con: ${p.title}" loading="lazy"><span class="blog-category">${p.category} · ${p.read}</span><h3>${p.title}</h3><p>${p.excerpt}</p><button type="button" data-post="${i}">Leer artículo completo ↗</button></article>`).join("");
 document.getElementById("blogGrid").addEventListener("click",e=>{
- const btn=e.target.closest("[data-post]");if(!btn)return;
+ const btn=e.target.closest("button[data-post]");
+ if(!btn)return;
  const post=posts[Number(btn.dataset.post)];
- const dialog=document.createElement("dialog");dialog.className="article-dialog";
- dialog.innerHTML=`<button class="dialog-close" aria-label="Cerrar">×</button><span class="eyebrow">${post.category}</span><h2>${post.title}</h2><p class="article-body">${post.body}</p><small>${post.read} · Panamá por Descubrir</small>`;
- document.body.appendChild(dialog);dialog.showModal();dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.addEventListener("close",()=>dialog.remove());
+ if(!post)return;
+
+ const dialog=document.createElement("dialog");
+ dialog.className="article-dialog";
+ dialog.setAttribute("aria-labelledby","articleDialogTitle");
+ dialog.innerHTML=`<div class="article-dialog-header"><span class="eyebrow">${post.category}</span><button class="dialog-close" type="button" aria-label="Cerrar artículo">×</button></div><article><h2 id="articleDialogTitle">${post.title}</h2><p class="article-body">${post.body}</p><small>${post.read} · Panamá por Descubrir</small></article>`;
+ document.body.appendChild(dialog);
+
+ const closeButton=dialog.querySelector(".dialog-close");
+ closeButton.addEventListener("click",()=>dialog.close());
+ dialog.addEventListener("click",event=>{
+  if(event.target===dialog)dialog.close();
+ });
+ dialog.addEventListener("close",()=>{
+  dialog.remove();
+  btn.focus();
+ });
+ dialog.showModal();
+ closeButton.focus();
 });
 
 const commentKey="ppd-comments-v1";
