@@ -40,3 +40,13 @@
 @media(prefers-reduced-motion:reduce){
  .blog-card img{transition:none}
 }
+
+/* Sección 4: tarjetas de recomendaciones y servicios */
+.rec-card,.service-card{transition:transform .22s ease,box-shadow .22s ease}
+.rec-card:hover,.service-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.12)}
+.service-card a:focus-visible,.recommendation-copy a:focus-visible,.rec-card a:focus-visible{outline:3px solid var(--coral);outline-offset:4px;border-radius:4px}
+.service-card a{display:inline-flex;align-items:center;gap:6px}
+@media(prefers-reduced-motion:reduce){
+ .rec-card,.service-card{transition:none}
+ .rec-card:hover,.service-card:hover{transform:none}
+}
