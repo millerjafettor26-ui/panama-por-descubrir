@@ -40,13 +40,13 @@
 
     <section class="search-strip" aria-label="Buscar destinos">
       <div><span class="search-icon">⌕</span><div><label for="destinationSearch">¿Qué te gustaría descubrir?</label><input id="destinationSearch" type="search" placeholder="Busca playas, montañas, cultura..."></div></div>
-      <div><span class="search-icon">⌖</span><div><label for="regionFilter">Explora por región</label><select id="regionFilter"><option value="all">Todo Panamá</option><option value="Panamá">Panamá</option><option value="Bocas del Toro">Bocas del Toro</option><option value="Chiriquí">Chiriquí</option><option value="Guna Yala">Guna Yala</option><option value="Coclé">Coclé</option><option value="Veraguas">Veraguas</option></select></div></div>
+      <div><span class="search-icon">⌖</span><div><label for="regionFilter">Explora por región</label><select id="regionFilter"><option value="all">Todo Panamá</option><option value="Panamá">Panamá</option><option value="Bocas del Toro">Bocas del Toro</option><option value="Chiriquí">Chiriquí</option><option value="Guna Yala">Guna Yala</option><option value="Coclé">Coclé</option><option value="Veraguas">Veraguas</option><option value="Los Santos">Los Santos</option></select></div></div>
       <a class="button button-dark" href="#destinos">Encontrar lugares ↗</a>
     </section>
 
     <section class="section destinations-section" id="destinos">
       <div class="section-heading"><div><span class="eyebrow">TU PRÓXIMA HISTORIA COMIENZA AQUÍ</span><h2>Destinos que <em>enamoran</em></h2></div><p>Desde rincones conocidos hasta tesoros escondidos: elige tu próxima aventura.</p></div>
-      <div class="filter-pills" id="categoryFilters"><button class="pill active" data-category="all">Todos</button><button class="pill" data-category="Playa">🏝️ Playa e islas</button><button class="pill" data-category="Naturaleza">🌿 Naturaleza</button><button class="pill" data-category="Cultura">🏛️ Cultura</button><button class="pill" data-category="Aventura">🥾 Aventura</button></div>
+      <div class="filter-pills" id="categoryFilters"><button class="pill active" data-category="all" aria-pressed="true">Todos</button><button class="pill" data-category="Playa" aria-pressed="false">🏝️ Playa e islas</button><button class="pill" data-category="Naturaleza" aria-pressed="false">🌿 Naturaleza</button><button class="pill" data-category="Cultura" aria-pressed="false">🏛️ Cultura</button><button class="pill" data-category="Aventura" aria-pressed="false">🥾 Aventura</button></div>
       <div class="destination-grid" id="destinationGrid"></div>
       <p class="empty-state" id="emptyDestinations" hidden>No encontramos destinos con esos filtros. Prueba otra búsqueda.</p>
     </section>

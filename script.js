@@ -19,10 +19,17 @@ const search = document.getElementById("destinationSearch");
 const regionFilter = document.getElementById("regionFilter");
 let activeCategory = "all";
 
+function normalizeText(value){
+ return String(value).normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").toLocaleLowerCase("es").trim();
+}
 function renderDestinations(){
- const term = search.value.trim().toLocaleLowerCase("es");
+ const term = normalizeText(search.value);
  const region = regionFilter.value;
- const filtered = destinations.filter(d => (activeCategory==="all" || d.category===activeCategory) && (region==="all" || d.region===region) && (d.name+" "+d.region+" "+d.category+" "+d.description).toLocaleLowerCase("es").includes(term));
+ const filtered = destinations.filter(d =>
+  (activeCategory==="all" || d.category===activeCategory) &&
+  (region==="all" || d.region===region) &&
+  normalizeText(d.name+" "+d.region+" "+d.category+" "+d.description).includes(term)
+ );
  grid.innerHTML = filtered.map(d => `<article class="destination-card"><div class="destination-image"><img src="${d.image}" alt="${d.name}" loading="lazy"><span class="tag">${d.tag}</span></div><div class="destination-body"><div class="destination-meta"><span>⌖ ${d.region}</span><span>${d.duration}</span></div><h3>${d.name}</h3><p>${d.description}</p><a class="text-link" href="#contacto" data-destination="${d.name}">Planificar visita ↗</a></div></article>`).join("");
  document.getElementById("emptyDestinations").hidden = filtered.length !== 0;
 }
@@ -32,7 +39,11 @@ regionFilter.addEventListener("change",renderDestinations);
 document.getElementById("categoryFilters").addEventListener("click",e=>{
  const btn=e.target.closest("button[data-category]"); if(!btn)return;
  activeCategory=btn.dataset.category;
- document.querySelectorAll(".pill").forEach(p=>p.classList.toggle("active",p===btn));
+ document.querySelectorAll("#categoryFilters .pill").forEach(p=>{
+  const selected=p===btn;
+  p.classList.toggle("active",selected);
+  p.setAttribute("aria-pressed",String(selected));
+ });
  renderDestinations();
 });
 
