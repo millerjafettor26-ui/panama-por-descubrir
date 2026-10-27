@@ -59,3 +59,15 @@
 @media(prefers-reduced-motion:reduce){
  .comment-list *{scroll-behavior:auto}
 }
+
+/* Sección 6: formulario de contacto */
+.contact-form input:focus-visible,.contact-form select:focus-visible,.contact-form textarea:focus-visible{
+ outline:3px solid var(--green);
+ outline-offset:2px;
+}
+.contact-form .form-status{min-height:1.5em;overflow-wrap:anywhere}
+.contact-form button:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+@media(max-width:600px){
+ .contact-section{scroll-margin-top:20px}
+ .contact-form .form-row{grid-template-columns:1fr}
+}

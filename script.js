@@ -99,14 +99,27 @@ document.querySelectorAll("[data-service]").forEach(a=>a.addEventListener("click
 document.addEventListener("click",e=>{const a=e.target.closest("[data-destination]");if(a){document.getElementById("contactMessage").value=`Me interesa organizar una visita a ${a.dataset.destination}. ¿Podrían orientarme sobre opciones, duración y presupuesto?`;document.getElementById("contactInterest").value="Quiero organizar un viaje";}});
 document.getElementById("contactForm").addEventListener("submit",e=>{
  e.preventDefault();
- const name=document.getElementById("contactName").value.trim(),email=document.getElementById("contactEmail").value.trim(),interest=document.getElementById("contactInterest").value,message=document.getElementById("contactMessage").value.trim();
+ const name=document.getElementById("contactName").value.trim();
+ const email=document.getElementById("contactEmail").value.trim();
+ const interest=document.getElementById("contactInterest").value;
+ const message=document.getElementById("contactMessage").value.trim();
+ const status=document.getElementById("contactStatus");
  // Cambia este correo por el correo real del proyecto antes de publicar.
  const recipient="TU_CORREO@EJEMPLO.COM";
- if(recipient==="TU_CORREO@EJEMPLO.COM"){document.getElementById("contactStatus").textContent="Antes de usar este formulario, abre script.js y reemplaza TU_CORREO@EJEMPLO.COM por tu correo real.";return}
+
+ if(!name||!email||!message){
+  status.textContent="Completa tu nombre, correo y mensaje antes de continuar.";
+  return;
+ }
+ if(recipient==="TU_CORREO@EJEMPLO.COM"||!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(recipient)){
+  status.textContent="El formulario está listo, pero falta configurar el correo receptor en script.js.";
+  return;
+ }
+
  const subject=encodeURIComponent(`Consulta web: ${interest}`);
- const body=encodeURIComponent(`Nombre: ${name}\nCorreo: ${email}\nInterés: ${interest}\n\nMensaje:\n${message}`);
+ const body=encodeURIComponent(`Nombre: ${name}\\nCorreo: ${email}\\nInterés: ${interest}\\n\\nMensaje:\\n${message}`);
+ status.textContent="Se abrirá tu aplicación de correo para que revises y envíes la solicitud.";
  window.location.href=`mailto:${recipient}?subject=${subject}&body=${body}`;
- document.getElementById("contactStatus").textContent="Se está preparando un correo en tu aplicación de email.";
 });
 document.getElementById("year").textContent=new Date().getFullYear();
 const menuToggle=document.getElementById("menuToggle"),nav=document.getElementById("mainNav");
