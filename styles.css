@@ -50,3 +50,12 @@
  .rec-card,.service-card{transition:none}
  .rec-card:hover,.service-card:hover{transform:none}
 }
+
+/* Sección 5: estados y lectura de comentarios */
+.comment-form .form-status{min-height:1.5em;margin-top:10px}
+.comment-form button:focus-visible{outline:3px solid var(--coral);outline-offset:4px}
+.comment-list{overflow-wrap:anywhere}
+.comment-list .comment-item{min-width:0}
+@media(prefers-reduced-motion:reduce){
+ .comment-list *{scroll-behavior:auto}
+}
